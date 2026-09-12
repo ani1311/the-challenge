@@ -1,12 +1,14 @@
-use axum::{Router, routing::get};
+use crate::persistence::sqlx_user_repository::SqlxUserRepository;
 
 mod domain;
 mod use_cases;
+mod presentation;
+mod persistence;
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new()
-        .route("/", get(say_hi));
+    let user_repo = SqlxUserRepository::new();
+    let app = presentation::http::router::router(user_repo);
 
     let listener = tokio::net::TcpListener::bind("127.0.0.0:3000")
         .await
@@ -14,8 +16,4 @@ async fn main() {
 
     axum::serve(listener, app).await.unwrap();
 
-}
-
-async fn say_hi() -> &'static str{
-    "Hi"
 }
