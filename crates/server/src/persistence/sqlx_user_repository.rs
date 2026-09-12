@@ -3,7 +3,7 @@ use crate::{domain::User, use_cases::ports::{self, UserRepositoryError}};
 
 #[derive(Clone)]
 pub struct SqlxUserRepository {
-    pool: String // todo: Replace with connection pool
+    pool: String
 }
 
 impl SqlxUserRepository {
