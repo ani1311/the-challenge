@@ -4,3 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+common = { path = "../common" }
+console_error_panic_hook = "0.1.7"
+gloo-net = "0.6.0"
+leptos = { version = "0.8.15", features = ["csr"] }
+wasm-bindgen-futures = "0.4.55"
