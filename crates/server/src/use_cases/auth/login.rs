@@ -8,7 +8,7 @@ pub struct Login<UserRepo, AuthService> {
 }
 
 pub struct LoginInput {
-    pub name: String
+    pub username: String,
 }
 
 pub struct LoginOutput {
@@ -43,7 +43,7 @@ impl <UserRepo, AuthService> Login<UserRepo,AuthService > where UserRepo: UserRe
     }
 
     pub async fn execute(&self, input: LoginInput) -> Result<LoginOutput, LoginError> {
-        let user = self.user_repo.lookup_user(input.name).await?;
+        let user = self.user_repo.lookup_user(input.username).await?;
         let access_token = self.auth_service.issue_access_token(AuthUser { user_id: user.id() })?;
 
         Ok(LoginOutput { access_token })

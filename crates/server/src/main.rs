@@ -8,6 +8,8 @@ mod infrastructure;
 
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt().with_env_filter(std::env::var("RUST_LOG").unwrap_or_else(|_| "server=debug,tower_http=debug,axum=debug".into())).init();
+
     let user_repo = SqlxUserRepository::new();
     let auth = JwtService::new();
     let app = presentation::http::router::router(user_repo, auth);
