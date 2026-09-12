@@ -19,3 +19,10 @@ pub async fn register_user(
             user_id: output.user_id
         }))
 }
+
+
+// pub async fn me(
+//     State(state): State<AppState>,
+//     Json(req): Json<RegisterUserRequest>
+//     ) -> Result<Json<RegisterUserResponse>, StatusCode> {
+//     }

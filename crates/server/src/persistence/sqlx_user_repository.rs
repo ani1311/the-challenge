@@ -16,4 +16,8 @@ impl ports::UserRepository for SqlxUserRepository {
     async fn create_user(&self, username: String) -> Result<User, UserRepositoryError> {
         Ok(User::new(username))
     }
+
+    async fn lookup_user(&self, username: String) -> Result<User, UserRepositoryError> {
+        Ok(User::new(username))
+    }
 }
