@@ -6,7 +6,7 @@ pub struct RegisterUser<R> {
 }
 
 pub struct RegisterUserInput {
-    pub name: String
+    pub username: String,
 }
 
 pub struct RegisterUserOutput {
@@ -30,7 +30,7 @@ impl <R> RegisterUser<R> where R: UserRepository{
     }
 
     pub async fn execute(&self, input: RegisterUserInput) -> Result<RegisterUserOutput, RegisterUserError> {
-        let user = self.user_repo.create_user(input.name).await?;
+        let user = self.user_repo.create_user(input.username).await?;
         Ok(RegisterUserOutput { user_id: user.id() })
     }
 }

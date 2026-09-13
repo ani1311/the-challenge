@@ -21,7 +21,7 @@ services:
       dockerfile: containers/server.Containerfile
     environment:
       DATABASE_URL: postgres://challenge:challenge@db:5432/challenge
-      RUST_LOG: info
+      RUST_LOG: server=debug,tower_http=debug,axum=debug
     ports:
       - "3000:3000"
     depends_on:
