@@ -3,6 +3,7 @@ use common::{
     auth::{LoginRequest, LoginResponse},
     users::{RegisterUserRequest, RegisterUserResponse},
 };
+use tracing::debug;
 
 use crate::{
     presentation::http::state::AppState,
@@ -33,6 +34,9 @@ pub async fn login(
     State(state): State<AppState>,
     Json(req): Json<LoginRequest>,
 ) -> Result<Json<LoginResponse>, StatusCode> {
+
+    debug!(username = %req.username, "login request");
+
     let use_case = Login::new(state.user_repo(), state.auth());
     let input = LoginInput { username: req.username };
 

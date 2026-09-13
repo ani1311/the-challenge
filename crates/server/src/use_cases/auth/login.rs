@@ -1,3 +1,5 @@
+use tracing::debug;
+
 use crate::use_cases::ports::{AuthTokenError, AuthTokenService, AuthUser, UserRepository, UserRepositoryError};
 
 
@@ -44,6 +46,9 @@ impl <UserRepo, AuthService> Login<UserRepo,AuthService > where UserRepo: UserRe
 
     pub async fn execute(&self, input: LoginInput) -> Result<LoginOutput, LoginError> {
         let user = self.user_repo.lookup_user(input.username).await?;
+
+        debug!(username = %&&user.id(), "usecase for token");
+
         let access_token = self.auth_service.issue_access_token(AuthUser { user_id: user.id() })?;
 
         Ok(LoginOutput { access_token })
